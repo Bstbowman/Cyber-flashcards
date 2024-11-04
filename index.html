@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Display</title>
+    <style>
+        /* Basic styling for the card */
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .id, .question, .answers, .correctAnswer {
+            margin: 5px 0;
+        }
+        .answers li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cardDisplay"></div>
+
+<script>
+    function createCard(id, question, answers, correctAnswer) {
+        return {
+            id: id,
+            question: question,
+            answers: answers,
+            correctAnswer: correctAnswer
+        };
+    }
+
+    // Card creation
+    const card = createCard(1, 'What is the primary purpose of the NIST Cybersecurity Framework (CSF)?', ['To serve as a translation layer for multidisciplinary teams'], 'To serve as a translation layer for multidisciplinary teams');
+
+    // Function to display the card
+    function displayCard(card) {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        cardDiv.innerHTML = `
+            <div class="id">ID: <span>${card.id}</span></div>
+            <div class="question">Question: <span>${card.question}</span></div>
+            <div class="answers">Answers:
+                <ul>
+                ${card.answers.map(answer => `<li>${answer}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="correctAnswer">Correct Answer: <span>${card.correctAnswer}</span></div>
+        `;
+        document.getElementById('cardDisplay').appendChild(cardDiv);
+    }
+
+    // Display the card
+    displayCard(card);
+
+    // Asserting the properties (for debugging/development purposes)
+    console.assert(card.id === 1, 'Card ID is not 1');
+    console.assert(card.question === 'What is the primary purpose of the NIST Cybersecurity Framework (CSF)?', 'Card question is not correct');
+    console.assert(Array.isArray(card.answers) && card.answers.length === 1 && card.answers[0] === 'To serve as a translation layer for multidisciplinary teams', 'Card answers are not correct');
+    console.assert(card.correctAnswer === 'To serve as a translation layer for multidisciplinary teams', 'Card correct answer is not correct');
+</script>
+</body>
+</html>
